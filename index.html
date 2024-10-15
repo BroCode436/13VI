@@ -242,7 +242,8 @@
 
     // Populate names list on page load
     window.onload = function() {
-        openNamesModal();
+        // Display previously registered names
+        document.getElementById("namesList").innerHTML = registeredNames.map(name => `<p>${name}</p>`).join('');
     };
 </script>
 
