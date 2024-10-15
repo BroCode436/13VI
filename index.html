@@ -154,7 +154,8 @@
 </div>
 
 <script>
-    const registeredNames = []; // Array to store registered names
+    // Retrieve registered names from local storage or initialize an empty array
+    const registeredNames = JSON.parse(localStorage.getItem('registeredNames')) || [];
 
     // Set the date for the gathering
     const eventDate = new Date('2024-10-28T12:00:00').getTime(); // Adjust the time as needed
@@ -212,6 +213,7 @@
 
         if (name && email) {
             registeredNames.push(name); // Add the name to the array
+            localStorage.setItem('registeredNames', JSON.stringify(registeredNames)); // Save to local storage
             document.getElementById("confirmationMessage").innerText = `Thank you for your RSVP, ${name}. We appreciate your support.`;
             closeRSVPModal();
             document.getElementById("confirmationModal").style.display = "block";
@@ -237,6 +239,11 @@
             closeNamesModal();
         }
     }
+
+    // Populate names list on page load
+    window.onload = function() {
+        openNamesModal();
+    };
 </script>
 
 </body>
