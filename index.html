@@ -125,11 +125,7 @@
     <div class="button" onclick="openNamesModal()">View Registered Names</div>
 
     <h3>Registered Names</h3>
-    <div class="names-list" id="namesList">
-        <p>John Doe</p>
-        <p>Jane Smith</p>
-        <p>Emily Johnson</p>
-    </div>
+    <div class="names-list" id="namesList"></div>
 </div>
 
 <!-- Modal for RSVP -->
@@ -162,8 +158,8 @@
 </div>
 
 <script>
-    // Predefined list of registered names
-    const registeredNames = ["John Doe", "Jane Smith", "Emily Johnson"];
+    // Initialize an empty list for registered names
+    let registeredNames = [];
 
     // Set the date for the gathering
     const eventDate = new Date('2024-10-28T12:00:00').getTime(); // Adjust the time as needed
