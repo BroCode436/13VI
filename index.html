@@ -107,6 +107,7 @@
             margin-top: 10px;
             max-height: 200px;
             overflow-y: auto;
+            text-align: left;
         }
     </style>
 </head>
@@ -122,6 +123,13 @@
     <div class="countdown" id="countdown"></div>
     <div class="button" onclick="openRSVPModal()">RSVP</div>
     <div class="button" onclick="openNamesModal()">View Registered Names</div>
+
+    <h3>Registered Names</h3>
+    <div class="names-list" id="namesList">
+        <p>John Doe</p>
+        <p>Jane Smith</p>
+        <p>Emily Johnson</p>
+    </div>
 </div>
 
 <!-- Modal for RSVP -->
@@ -149,13 +157,13 @@
     <div class="modal-content">
         <span class="close" onclick="closeNamesModal()">&times;</span>
         <h3>Registered Names</h3>
-        <div class="names-list" id="namesList"></div>
+        <div class="names-list" id="namesListModal"></div>
     </div>
 </div>
 
 <script>
-    // Retrieve registered names from local storage or initialize an empty array
-    const registeredNames = JSON.parse(localStorage.getItem('registeredNames')) || [];
+    // Predefined list of registered names
+    const registeredNames = ["John Doe", "Jane Smith", "Emily Johnson"];
 
     // Set the date for the gathering
     const eventDate = new Date('2024-10-28T12:00:00').getTime(); // Adjust the time as needed
@@ -197,7 +205,7 @@
 
     // Open Names Modal
     function openNamesModal() {
-        document.getElementById("namesList").innerHTML = registeredNames.map(name => `<p>${name}</p>`).join('');
+        document.getElementById("namesListModal").innerHTML = registeredNames.map(name => `<p>${name}</p>`).join('');
         document.getElementById("namesModal").style.display = "block";
     }
 
@@ -213,7 +221,8 @@
 
         if (name && email) {
             registeredNames.push(name); // Add the name to the array
-            localStorage.setItem('registeredNames', JSON.stringify(registeredNames)); // Save to local storage
+            // Display the new name directly
+            document.getElementById("namesList").innerHTML += `<p>${name}</p>`;
             document.getElementById("confirmationMessage").innerText = `Thank you for your RSVP, ${name}. We appreciate your support.`;
             closeRSVPModal();
             document.getElementById("confirmationModal").style.display = "block";
@@ -238,12 +247,6 @@
         if (event.target == namesModal) {
             closeNamesModal();
         }
-    }
-
-    // Populate names list on page load
-    window.onload = function() {
-        // Display previously registered names
-        document.getElementById("namesList").innerHTML = registeredNames.map(name => `<p>${name}</p>`).join('');
     };
 </script>
 
